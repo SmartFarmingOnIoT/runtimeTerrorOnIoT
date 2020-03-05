@@ -1,4 +1,6 @@
 # Documentation of runtimeTerrorOnIoT Web App
+TEAM: RuntimeTerrorOnIoT
+Team Number : 38
 
 This is a web app to monitor various key factors in a plantation such as Temperature (of the atmosphere), Humidity (of the atmosphere), Light intensity, Soil Moisture levels, Gas levels (presence of harmful gases such as Methane, etc.
 
