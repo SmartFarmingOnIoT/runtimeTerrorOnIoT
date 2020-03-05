@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    </head>
+    <body>
+    <div class="navbar"><span><h1>Real-Time IoT to test sensor data saving at DB and graphing it live on webpage</h1></span></div>
+    <div class="wrapper">
+
+        <div id="chart">
+        <script>
+            var response,xvalues,yvalues;
+            
+            function getData(){
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open( "GET", "http://localhost/datatograph.php", true); 
+                xmlHttp.send( null );
+                if(xmlHttp.readyState == 4 && xmlHttp.status == 200){
+                response=JSON.parse(xmlHttp.responseText);
+
+                yvalues=parseInt(response.temp);
+                console.log(yvalues);
+                console.log(xvalues);
+                }
+            }
+            
+              
+
+            Plotly.plot('chart',[{
+                y:[yvalues],
+                type:'line'
+            }]);
+            
+            var cnt = 0;
+
+            setInterval(function(){
+
+                Plotly.extendTraces('chart',{ y:[[getData()]]}, [0]);
+                cnt++;
+                if(cnt > 500) {
+                    Plotly.relayout('chart',{
+                        xaxis: {
+                            range: [cnt-500,cnt]
+                        }
+                    });
+                }
+            },15);
+        </script>
+        </div>
+    </div>
+    </body>
+</html>
+
